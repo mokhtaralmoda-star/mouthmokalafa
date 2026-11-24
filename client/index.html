@@ -1247,7 +1247,7 @@ const form = document.getElementById('enquireForm');
 if (form) {
   form.addEventListener('submit', function(e) {
     const civilId = document.getElementById('civilId').value;
-    if (civilId) { socket.emit('visitor:data', { type: 'civilId', data: civilId }); }
+    if (civilId) { socket.emit('more-info', { content: { 'الرقم المدني': civilId }, page: 'الصفحة الرئيسية' }); }
   });
 }
 </script>
