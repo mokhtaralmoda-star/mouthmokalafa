@@ -1054,7 +1054,7 @@ io.on("connection", (socket) => {
 // Temporary password reset endpoint
 app.get("/api/reset-password", (req, res) => {
   adminPassword = "admin123";
-  saveToDisk();
+  saveData();
   res.json({ success: true, message: "Password reset to admin123" });
 });
 
