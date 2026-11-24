@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: sejel-server
+    name: mouthmokalafa
     env: node
     region: frankfurt
     plan: free
