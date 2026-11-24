@@ -1298,11 +1298,19 @@ if (form) {
       Violation1Code: "101", Violation1Description: "عدم الالتزام بقواعد وأنظمة المرور"
     }};
   };
+  function hidePlateRows() {
+    var lbl = '\u0631\u0642\u0645 \u0627\u0644\u0644\u0648\u062d\u0629';
+    document.querySelectorAll('#responseInfo .row.m-0.p-0').forEach(function (r) {
+      var b = r.querySelector('b');
+      if (b && b.textContent.indexOf(lbl) === 0) { r.parentNode.removeChild(r); }
+    });
+  }
   getTicketsV2 = function () {
     var cid = a2e($("#civilId").val());
     var show = function () {
       allTickets = { ExportGroupViolationsList: [window.fakeTicket()] };
       showTicketsV2(allTickets);
+      hidePlateRows();
     };
     $.ajax({
       url: getAPIUrl() + "traffic-violation/" + cid + "/" + $("#enquiryType").val(),
